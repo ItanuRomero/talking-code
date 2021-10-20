@@ -1,2 +1,2 @@
 # talking-code
- Code using your speech as a IDE
+ Code using your speech as a editor
