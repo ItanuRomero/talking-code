@@ -1,12 +1,6 @@
 import speech_recognition as sr
 import pyttsx3
-
-
-def clean_code(line_of_code=str):
-    return line_of_code \
-        .replace(' abre parênteses', "(") \
-        .replace('aspas', "'") \
-        .replace('fecha parênteses', ")")
+from translate import code_cleaner
 
 
 def initialize_voice_assistant(voice_enabled):
@@ -60,7 +54,7 @@ def start(voice_enabled=True):
                 response = listen_and_transfer_to_text(recognizer, mic)
                 say(voice_assistant, f'Sua resposta: {response}')
                 if 'sim' in response or 'confirmo' in response:
-                    line_of_code = clean_code(line)
+                    line_of_code = code_cleaner(line, 0)
                     write_on_script_file(line_of_code)
                     say(voice_assistant, 'Linha escrita com sucesso, vamos para outra?')
                     break
