@@ -1,4 +1,4 @@
-import first_level
+from talk_in_code import first_level
 
 
 def code_cleaner(text: str, level: int):

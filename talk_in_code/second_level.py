@@ -9,7 +9,7 @@ def delimiter_cleaner(dirty_text: str):
             else:
                 dirty_text = dirty_text \
                     .replace('parêntesis', ')', 1)
-    elif 'chaves' in dirty_text:
+    if 'chaves' in dirty_text:
         chaves = dirty_text \
             .find('chaves')
         for counter in range(0, chaves):
@@ -19,7 +19,7 @@ def delimiter_cleaner(dirty_text: str):
             else:
                 dirty_text = dirty_text \
                     .replace('chaves', '}', 1)
-    elif 'colchetes' in dirty_text:
+    if 'colchetes' in dirty_text:
         brackets = dirty_text \
             .find('colchetes')
         for counter in range(0, brackets):
@@ -29,8 +29,8 @@ def delimiter_cleaner(dirty_text: str):
             else:
                 dirty_text = dirty_text \
                     .replace('colchetes', ']', 1)
-    elif 'aspas' in dirty_text:
+    if 'aspas' in dirty_text:
         dirty_text = dirty_text \
-            .replace(' aspas', "'")
-    cleaned_text = dirty_text.replace(' ', '')
+            .replace('aspas', "'")
+    cleaned_text = dirty_text
     return cleaned_text
