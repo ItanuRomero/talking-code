@@ -1,12 +1,6 @@
 import speech_recognition as sr
 import pyttsx3
-
-
-def clean_code(line_of_code=str):
-    return line_of_code \
-        .replace(' abre parênteses', "(") \
-        .replace('aspas', "'") \
-        .replace('fecha parênteses', ")")
+import talk_in_code.translate
 
 
 def initialize_voice_assistant(voice_enabled):
@@ -28,7 +22,6 @@ def say(voice_assistant, text):
 
 
 def listen_and_transfer_to_text(recognizer, microphone):
-    recognizer.adjust_for_ambient_noise(microphone)
     audio = recognizer.listen(microphone)
     try:
         text = recognizer.recognize_google(audio, language='pt-BR')
@@ -49,9 +42,10 @@ def start(voice_enabled=True):
     recognizer = sr.Recognizer()
     while True:
         with sr.Microphone() as mic:
+            recognizer.adjust_for_ambient_noise(mic)
             say(voice_assistant, 'Diga algo: ')
             line = listen_and_transfer_to_text(recognizer, mic)
-            if 'Fechar sistema' in line:
+            if 'sair' in line:
                 say(voice_assistant, 'fechar sistema detectado, finalizando...')
                 break
             say(voice_assistant, 'Verifique na tela se a frase está correta.')
@@ -60,11 +54,11 @@ def start(voice_enabled=True):
                 response = listen_and_transfer_to_text(recognizer, mic)
                 say(voice_assistant, f'Sua resposta: {response}')
                 if 'sim' in response or 'confirmo' in response:
-                    line_of_code = clean_code(line)
+                    line_of_code = talk_in_code.translate.code_cleaner(line, 0)
                     write_on_script_file(line_of_code)
                     say(voice_assistant, 'Linha escrita com sucesso, vamos para outra?')
                     break
-                elif 'Fechar sistema' in response:
+                elif 'sair' in response:
                     return 'Sistema fechado.'
                 elif 'não' in response or 'refazer' in response:
                     break
@@ -72,4 +66,4 @@ def start(voice_enabled=True):
 
 
 if __name__ == '__main__':
-    start()
+    start(False)
