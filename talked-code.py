@@ -1,1 +1,1 @@
-print( " fala pessoal ")
+print(" fala pessoal ")
