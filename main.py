@@ -1,3 +1,5 @@
+import os
+
 import speech_recognition as sr
 import pyttsx3
 import talk_in_code.translate
@@ -65,5 +67,10 @@ def start(voice_enabled=True):
     return 'Sucesso total!'
 
 
+def auto_pep_8(file_name='talked-code.py'):
+    os.system(f'autopep8 --in-place --aggressive --aggressive {file_name}')
+
+
 if __name__ == '__main__':
     start(False)
+    auto_pep_8()
