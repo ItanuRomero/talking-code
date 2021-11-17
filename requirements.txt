@@ -1,3 +1,4 @@
 pyttsx3==2.90
 SpeechRecognition==3.8.1
 autopep8==1.6.0
+talk_in_code==0.0.3
