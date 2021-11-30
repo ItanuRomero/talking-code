@@ -2,7 +2,7 @@ import os
 
 import speech_recognition as sr
 import pyttsx3
-import talk_in_code.translate
+from talk_in_code import translate
 
 
 def initialize_voice_assistant(voice_enabled):
@@ -56,7 +56,7 @@ def start(voice_enabled=True):
                 response = listen_and_transfer_to_text(recognizer, mic)
                 say(voice_assistant, f'Sua resposta: {response}')
                 if 'sim' in response or 'confirmo' in response:
-                    line_of_code = talk_in_code.translate.code_cleaner(line, 0)
+                    line_of_code = translate.run(line, language='pt-BR')
                     write_on_script_file(line_of_code)
                     say(voice_assistant, 'Linha escrita com sucesso, vamos para outra?')
                     break
@@ -67,7 +67,7 @@ def start(voice_enabled=True):
     return 'Sucesso total!'
 
 
-def auto_pep_8(file_name='talked-code.py'):
+def auto_pep_8(file_name: str = 'talked-code.py'):
     os.system(f'autopep8 --in-place --aggressive --aggressive {file_name}')
 
 
